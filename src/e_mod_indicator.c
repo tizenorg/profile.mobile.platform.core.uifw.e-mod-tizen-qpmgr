@@ -89,6 +89,8 @@ _indicator_evas_cb_mouse_up(void *data, Evas *evas EINA_UNUSED, Evas_Object *obj
    pi = eina_hash_find(hash_pol_indicators, &ec);
    if ((!pi) || (!pi->clicked)) return;
 
+   if (!quickpanel) return;
+
    qp_ec = e_mod_qpmgr_quickpanel_client_find();
 
    pi->clicked = EINA_FALSE;
@@ -153,9 +155,30 @@ _indicator_cb_comp_object_add(void *data EINA_UNUSED, int type EINA_UNUSED, E_Ev
 static void
 _indicator_hook_client_del(void *d EINA_UNUSED, E_Client *ec)
 {
+    Pol_Indicator *pi;
+
     if (!ec) return;
-    if (eina_hash_find(hash_pol_indicators, &ec))
-      eina_hash_del_by_key(hash_pol_indicators, &ec);
+    if ((pi = eina_hash_find(hash_pol_indicators, &ec)))
+      {
+         if ((pi->clicked) && (quickpanel))
+           {
+              evas_object_hide(quickpanel);
+              evas_object_del(quickpanel);
+              quickpanel = NULL;
+           }
+
+         eina_hash_del_by_key(hash_pol_indicators, &ec);
+      }
+
+    if (!e_util_strcmp(ec->icccm.title, "QUICKPANEL"))
+      {
+         if (quickpanel)
+           {
+              evas_object_hide(quickpanel);
+              evas_object_del(quickpanel);
+              quickpanel = NULL;
+           }
+      }
 }
 
 #undef E_CLIENT_HOOK_APPEND

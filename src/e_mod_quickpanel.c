@@ -291,6 +291,8 @@ e_mod_qpmgr_quickpanel_object_handler_move(Evas_Object *obj, int x, int y)
 {
    Quickpanel_Data *qp_data;
 
+   if (!obj) return EINA_FALSE;
+
    if (!evas_object_data_get(obj, "qp_obj")) return EINA_FALSE;
 
    qp_data = evas_object_smart_data_get(obj);
@@ -338,7 +340,7 @@ _quickpanel_client_evas_cb_mouse_move(void *data, Evas *evas EINA_UNUSED, Evas_O
    if (e_object_is_del(E_OBJECT(ec))) return;
    if (e_client_util_ignored_get(ec)) return;
 
-   if ((!_pol_quickpanel) || (!_pol_quickpanel->clicked)) return;
+   if ((!_pol_quickpanel) || (!_pol_quickpanel->clicked) || (!quickpanel)) return;
 
    e_mod_qpmgr_quickpanel_object_handler_move(quickpanel, 0, ev->cur.canvas.y);
 }
@@ -384,6 +386,8 @@ _quickpanel_client_evas_cb_mouse_up(void *data, Evas *evas EINA_UNUSED, Evas_Obj
      evas_object_move(ec->frame, 0, 0);
    else
      evas_object_move(ec->frame, -10000, -10000);
+
+   if (!quickpanel) return;
 
    evas_object_hide(quickpanel);
    evas_object_del(quickpanel);
@@ -452,6 +456,12 @@ _quickpanel_hook_client_del(void *d EINA_UNUSED, E_Client *ec)
 
     if (_pol_quickpanel->ec == ec)
       {
+         if (quickpanel)
+           {
+              evas_object_hide(quickpanel);
+              evas_object_del(quickpanel);
+              quickpanel = NULL;
+           }
          E_FREE(_pol_quickpanel);
          _pol_quickpanel = NULL;
       }
