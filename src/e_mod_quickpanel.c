@@ -467,6 +467,22 @@ _quickpanel_hook_client_del(void *d EINA_UNUSED, E_Client *ec)
       }
 }
 
+EINTERN Eina_Bool
+e_mod_qpmgr_quickpanel_handler_geometry_set(int x,
+                                            int y,
+                                            int width,
+                                            int height)
+{
+   if (!_pol_quickpanel) return EINA_FALSE;
+
+   _pol_quickpanel->handler_geo.x = x;
+   _pol_quickpanel->handler_geo.y = y;
+   _pol_quickpanel->handler_geo.w = width;
+   _pol_quickpanel->handler_geo.h = height;
+
+   return EINA_TRUE;
+}
+
 #undef E_CLIENT_HOOK_APPEND
 #define E_CLIENT_HOOK_APPEND(l, t, cb, d) \
   do                                      \

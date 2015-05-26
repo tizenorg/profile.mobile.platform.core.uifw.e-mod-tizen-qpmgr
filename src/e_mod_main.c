@@ -7,6 +7,7 @@ e_modapi_init(E_Module *m)
 {
    printf("LOAD %s MODULE\n", e_modapi.name);
 
+   e_mod_qpmgr_quickpanel_server_init();
    e_mod_qpmgr_indicator_init();
    e_mod_qpmgr_quickpanel_init();
 
@@ -16,6 +17,7 @@ e_modapi_init(E_Module *m)
 EAPI int
 e_modapi_shutdown(E_Module *m EINA_UNUSED)
 {
+   e_mod_qpmgr_quickpanel_server_shutdown();
    e_mod_qpmgr_indicator_shutdown();
    e_mod_qpmgr_quickpanel_shutdown();
 

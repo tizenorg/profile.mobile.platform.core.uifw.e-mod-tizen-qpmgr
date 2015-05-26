@@ -8,6 +8,9 @@ pkg_LTLIBRARIES        = module.la
 module_la_SOURCES      = e_mod_main.c \
                          e_mod_indicator.c \
                          e_mod_quickpanel.c \
+                         e_mod_quickpanel_server.c \
+                         quickpanel-server-protocol.h \
+                         quickpanel-protocol.c \
                          e_mod_main.h
 module_la_LIBADD       =
 module_la_CFLAGS       = @ENLIGHTENMENT_CFLAGS@

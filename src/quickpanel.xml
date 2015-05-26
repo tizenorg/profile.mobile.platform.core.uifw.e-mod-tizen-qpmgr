@@ -1,0 +1,16 @@
+<protocol name="quickpanel">
+
+  <interface name="quickpanel" version="1">
+    <request name="set_surface">
+      <arg name="surface" type="object" interface="wl_surface"/>
+    </request>
+
+    <request name="set_handler_geometry">
+      <arg name="x" type="uint"/>
+      <arg name="y" type="uint"/>
+      <arg name="width" type="uint"/>
+      <arg name="height" type="uint"/>
+    </request>
+  </interface>
+
+</protocol>
