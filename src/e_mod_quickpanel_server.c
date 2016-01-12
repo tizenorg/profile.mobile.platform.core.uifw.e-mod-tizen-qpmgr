@@ -92,14 +92,7 @@ void _e_quickpanel_set_handler_geometry(struct wl_client *client,
 static void
 _e_quickpanel_cb_bind(struct wl_client *client, void *data, uint32_t version, uint32_t id)
 {
-   E_Comp_Data *cdata;
    struct wl_resource *res;
-
-   if (!(cdata = data))
-     {
-        wl_client_post_no_memory(client);
-        return;
-     }
 
    if (!(res = wl_resource_create(client, &quickpanel_interface, MIN(version, 1), id)))
      {
@@ -108,21 +101,19 @@ _e_quickpanel_cb_bind(struct wl_client *client, void *data, uint32_t version, ui
         return;
      }
 
-   wl_resource_set_implementation(res, &_e_quickpanel_interface, cdata, NULL);
+   wl_resource_set_implementation(res, &_e_quickpanel_interface, NULL, NULL);
 }
 
 
 EINTERN void
 e_mod_qpmgr_quickpanel_server_init(void)
 {
-   E_Comp_Data *cdata;
    E_Quickpanel *qp;
 
-   if (!e_comp) return;
-   if (!(cdata = e_comp->wl_comp_data)) return;
-   if (!cdata->wl.disp) return;
+   if (!e_comp_wl) return;
+   if (!e_comp_wl->wl.disp) return;
 
-   if (!wl_global_create(cdata->wl.disp, &quickpanel_interface, 1, cdata, _e_quickpanel_cb_bind))
+   if (!wl_global_create(e_comp_wl->wl.disp, &quickpanel_interface, 1, NULL, _e_quickpanel_cb_bind))
      {
         ERR("Could not add quickpanel to wayland globals: %m");
         return;

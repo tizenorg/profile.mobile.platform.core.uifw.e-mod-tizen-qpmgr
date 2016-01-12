@@ -315,7 +315,7 @@ e_mod_qpmgr_quickpanel_client_find(void)
 {
    E_Client *ec;
 
-   E_CLIENT_REVERSE_FOREACH(e_comp, ec)
+   E_CLIENT_REVERSE_FOREACH(ec)
      {
         if (e_object_is_del(E_OBJECT(ec))) continue;
         if (e_client_util_ignored_get(ec)) continue;
