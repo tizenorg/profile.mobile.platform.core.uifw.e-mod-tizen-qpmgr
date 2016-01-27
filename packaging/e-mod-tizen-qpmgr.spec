@@ -8,6 +8,11 @@ Release:    1
 Group:      Graphics & UI Framework/Other
 License:    BSD-2-Clause
 Source0:    %{name}-%{version}.tar.bz2
+
+%if "%{profile}" == "wearable" || "%{profile}" == "tv"
+ExcludeArch: %{arm} %ix86 x86_64
+%endif
+
 BuildRequires: pkgconfig(enlightenment)
 %if %{with x}
 BuildRequires: pkgconfig(x11) 
