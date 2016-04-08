@@ -39,7 +39,6 @@ void _e_quickpanel_set_surface(struct wl_client *client,
 {
    E_Pixmap *ep;
    E_Client *ec;
-   E_Comp_Client_Data *cdata;
 
    /* get the pixmap from this surface so we can find the client */
    if (!(ep = wl_resource_get_user_data(surface_resource)))

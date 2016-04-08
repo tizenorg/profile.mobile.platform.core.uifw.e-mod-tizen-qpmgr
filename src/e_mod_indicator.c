@@ -16,9 +16,6 @@ static Eina_Hash *hash_pol_indicators = NULL;
 
 // Quickpanel object
 static Evas_Object *quickpanel = NULL;
-static Evas_Object *quickpanel_clipper = NULL;
-static int quickpanel_x = 0;
-static int quickpanel_y = 0;
 
 static void
 _pol_cb_clients_data_free(void *data)
@@ -31,7 +28,6 @@ _indicator_evas_cb_mouse_move(void *data, Evas *evas EINA_UNUSED, Evas_Object *o
 {
    E_Client *ec;
    Evas_Event_Mouse_Move *ev;
-   Eina_List *l;
    Pol_Indicator *pi;
 
    ev = event;
