@@ -3,7 +3,7 @@
 
 Name:       e-mod-tizen-qpmgr
 Summary:    The Enlightenment Quickpanel Manager 
-Version:    0.1.14
+Version:    0.1.15
 Release:    1
 Group:      Graphics & UI Framework/Other
 License:    BSD-2-Clause
