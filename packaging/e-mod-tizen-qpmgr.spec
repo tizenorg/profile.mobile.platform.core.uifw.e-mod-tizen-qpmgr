@@ -1,6 +1,3 @@
-%bcond_with x
-%bcond_with wayland
-
 Name:       e-mod-tizen-qpmgr
 Summary:    The Enlightenment Quickpanel Manager 
 Version:    0.1.15
@@ -14,14 +11,9 @@ ExcludeArch: %{arm} %ix86 x86_64
 %endif
 
 BuildRequires: pkgconfig(enlightenment)
-%if %{with x}
-BuildRequires: pkgconfig(x11) 
-%endif
-%if %{with wayland}
 BuildRequires: pkgconfig(eina)
 BuildRequires: pkgconfig(ecore)
 BuildRequires: pkgconfig(edje)
-%endif
 
 %global TZ_SYS_RO_SHARE  %{?TZ_SYS_RO_SHARE:%TZ_SYS_RO_SHARE}%{!?TZ_SYS_RO_SHARE:/usr/share}
 
@@ -33,12 +25,7 @@ The Enlightenment Quickpanel Manager
 
 %build
 %autogen
-%if %{with wayland}
-%configure \
-      --enable-wayland-only
-%else
 %configure
-%endif
 make %{?_smp_mflags}
 
 %install

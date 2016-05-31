@@ -1,7 +1,4 @@
-#define E_COMP_WL
 #include "e.h"
-#include <wayland-server.h>
-#include <Ecore_Wayland.h>
 #include "quickpanel-server-protocol.h"
 #include "e_mod_main.h"
 
