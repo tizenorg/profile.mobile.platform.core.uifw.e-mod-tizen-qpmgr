@@ -24,6 +24,7 @@ The Enlightenment Quickpanel Manager
 %setup -q -n %{name}-%{version}
 
 %build
+export CFLAGS+=" -Werror "
 %autogen
 %configure
 make %{?_smp_mflags}
